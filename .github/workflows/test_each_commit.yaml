@@ -92,18 +92,7 @@ jobs:
           source "$HOME/.bashrc"
           source /etc/profile.d/ibm-aiu-setup.sh
           cd "$CLONED_SPYRE_INFERENCE_DIR"
-          # uv sync reconciles the .venv against pyproject.toml + uv.lock,
-          # so torch is reinstalled only when the resolved version or source
-          # differs from what's already installed (e.g., a PR bumps the
-          # torch~=2.10.0 constraint, or the pre-baked venv has a torch from
-          # a different index than the pytorch-cpu source in uv.lock).
-          uv add --editable /home/senuser/torch-spyre
-          uv sync \
-            --verbose \
-            --all-extras \
-            --active \
-            --inexact \
-            --group dev
+          uv sync --verbose --group dev
           # Print the resolved torch install for log visibility.
           uv pip show torch
           uv pip freeze
